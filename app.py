@@ -22,7 +22,7 @@ with st.sidebar:
 # Prediction function
 def predict(message, system_prompt='', temperature=0.7, max_new_tokens=4096,Topp=0.5,Repetitionpenalty=1.2):
     with st.status("Starting client"):
-        client = Client("https://ysharma-explore-llamav2-with-tgi.hf.space/")
+        client = #Client("https://ysharma-explore-llamav2-with-tgi.hf.space/")
         st.write("Requesting client")
     with st.status("Requesting LLama-2"):
         st.write("Requesting API")
