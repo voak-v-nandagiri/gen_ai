@@ -2,10 +2,9 @@ import streamlit as st
 from gradio_client import Client
 
 # Constants
-TITLE = "Llama2 70B Chatbot"
+TITLE = "Voak Generative AI Tool - Landing Page"
 DESCRIPTION = """
-This Space demonstrates model [Llama-2-70b-chat-hf](https://huggingface.co/meta-llama/Llama-2-70b-chat-hf) by Meta, 
-a Llama 2 model with 70B parameters fine-tuned for chat instructions. 
+Intro text here.
 """
 
 # Initialize client
@@ -53,7 +52,7 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
         
 # React to user input
-if prompt := st.chat_input("Ask LLama-2-70b anything..."):
+if prompt := st.chat_input("Ask Voak AI anything..."):
     # Display user message in chat message container
     st.chat_message("human",avatar = "🧑‍💻").markdown(prompt)
     # Add user message to chat history
