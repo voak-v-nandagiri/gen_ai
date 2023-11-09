@@ -6,4 +6,4 @@ gradio-client
 #protobuf==3.20.0
 #transformers
 #accelerate>=0.12.0
-#bitsandbytes
+bitsandbytes
