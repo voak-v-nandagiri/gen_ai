@@ -6,7 +6,8 @@ gradio-client
 protobuf==3.20.0
 bitsandbytes
 
-fastai # 30min startup for this one
+#fastai # 30min startup for this one, works
+
 #pytorch
 
 
