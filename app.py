@@ -1,66 +1,36 @@
-import streamlit as st
-from gradio_client import Client
+import os
 
-# Constants
-TITLE = "Voak Generative AI Tool - Landing Page"
-DESCRIPTION = """
-Intro text here.
-"""
+from flask import (Flask, redirect, render_template, request,
+                   send_from_directory, url_for)
 
-# Initialize client
+app = Flask(__name__)
 
-
-with st.sidebar:
-    # system_promptSide = st.text_input("Optional system prompt:")
-    temperatureSide = st.slider("Temperature", min_value=0.0, max_value=1.0, value=0.9, step=0.05)
-    max_new_tokensSide = st.slider("Max new tokens", min_value=0.0, max_value=4096.0, value=4096.0, step=64.0)
-    # ToppSide = st.slider("Top-p (nucleus sampling)", min_value=0.0, max_value=1.0, value=0.6, step=0.05)
-    # RepetitionpenaltySide = st.slider("Repetition penalty", min_value=0.0, max_value=2.0, value=1.2, step=0.05)
-
-
+#@app.route("/")
+#def index():
+#    return "<h1>Voak Generative AI Tool - Landing Page</h1>"
     
-# Prediction function
-def predict(message, system_prompt='', temperature=0.7, max_new_tokens=4096,Topp=0.5,Repetitionpenalty=1.2):
-    with st.status("Starting client"):
-        client = Client("https://ysharma-explore-llamav2-with-tgi.hf.space/")
-        st.write("Requesting client")
-    with st.status("Requesting LLama-2"):
-        st.write("Requesting API")
-        response = client.predict(
-    			message,	# str in 'Message' Textbox component
-                system_prompt,	# str in 'Optional system prompt' Textbox component
-    			temperature,	# int | float (numeric value between 0.0 and 1.0)
-    			max_new_tokens,	# int | float (numeric value between 0 and 4096)
-    			Topp,	# int | float (numeric value between 0.0 and 1)
-    			Repetitionpenalty,	# int | float (numeric value between 1.0 and 2.0)
-    			api_name="/chat"
-        )
-        st.write("Done")
-        return response
+@app.route('/')
+def index():
+   print('Request for index page received')
+   return render_template('index.html')
 
-# Streamlit UI
-st.title(TITLE)
-st.write(DESCRIPTION)
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+
+@app.route('/hello', methods=['POST'])
+def hello():
+   name = request.form.get('name')
+
+   if name:
+       print('Request for hello page received with name=%s' % name)
+       return render_template('hello.html', name = name)
+   else:
+       print('Request for hello page received with no name or blank name -- redirecting')
+       return redirect(url_for('index'))
 
 
-if "messages" not in st.session_state:
-    st.session_state.messages = []
+if __name__ == '__main__':
+   app.run()
 
-# Display chat messages from history on app rerun
-for message in st.session_state.messages:
-    with st.chat_message(message["role"], avatar=("🧑‍💻" if message["role"] == 'human' else '🦙')):
-        st.markdown(message["content"])
-        
-# React to user input
-if prompt := st.chat_input("Ask Voak AI anything..."):
-    # Display user message in chat message container
-    st.chat_message("human",avatar = "🧑‍💻").markdown(prompt)
-    # Add user message to chat history
-    st.session_state.messages.append({"role": "human", "content": prompt})
-
-    response = predict(message=prompt)#, temperature= temperatureSide,max_new_tokens=max_new_tokensSide)
-    # Display assistant response in chat message container
-    with st.chat_message("assistant", avatar='🦙'):
-        st.markdown(response)
-    # Add assistant response to chat history
-    st.session_state.messages.append({"role": "assistant", "content": response})
