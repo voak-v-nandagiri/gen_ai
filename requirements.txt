@@ -5,5 +5,5 @@ streamlit>=1.26.0
 gradio-client
 protobuf==3.20.0
 #transformers # fails
-accelerate>=0.12.0 # this one takes ages to run and initialise (20 mins +)
+#accelerate>=0.12.0 # this one takes ages to run and initialise (20 mins +)
 bitsandbytes
