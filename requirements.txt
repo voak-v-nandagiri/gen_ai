@@ -5,6 +5,8 @@ streamlit>=1.26.0
 gradio-client
 protobuf==3.20.0
 bitsandbytes
+torch
+transformers
 
 #fastai # 30min startup for this one, works
 
