@@ -1,12 +1,25 @@
-Flask==2.0.2
-gunicorn
-Werkzeug==2.3.7
-streamlit>=1.26.0
-gradio-client
-protobuf==3.20.0
-bitsandbytes
+streamlit
+pypdf
+langchain
 torch
+accelerate
+bitsandbytes
 transformers
+sentence_transformers
+faiss-cpu
+ctransformers
+gunicorn
+
+## all this was working
+#Flask==2.0.2
+#gunicorn
+#Werkzeug==2.3.7
+#streamlit>=1.26.0
+#gradio-client
+#protobuf==3.20.0
+#bitsandbytes
+#torch
+#transformers
 
 #fastai # 30min startup for this one, works
 
